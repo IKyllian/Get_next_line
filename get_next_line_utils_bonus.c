@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:10:17 by kdelport          #+#    #+#             */
-/*   Updated: 2020/12/03 16:35:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2020/12/04 10:07:02 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t size)
+void		*ft_memcpy(void *dst, const void *src, size_t size)
 {
 	char *dest;
 	char *source;
@@ -38,7 +38,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t size)
 	return (dst);
 }
 
-int		contain_newline(char *str)
+int			contain_newline(char *str)
 {
 	int i;
 
@@ -54,7 +54,7 @@ int		contain_newline(char *str)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char		*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
 	size_t	x;
@@ -73,10 +73,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*get_line_read(char *str)
+char		*get_line_read(char *str)
 {
-	int i;
-	char *new_str;
+	int		i;
+	char	*new_str;
 
 	i = 0;
 	if (!str)

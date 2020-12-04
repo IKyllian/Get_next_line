@@ -6,13 +6,13 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:09:46 by kdelport          #+#    #+#             */
-/*   Updated: 2020/12/03 15:56:28 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2020/12/04 10:14:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*get_next_save(char *str)
+char			*get_next_save(char *str)
 {
 	size_t	len_str;
 	size_t	i;
@@ -76,21 +76,29 @@ struct s_list	*ft_search_list(struct s_list *lst, int fd)
 	}
 }
 
-int		get_next_line(int fd, char **line)
+struct s_list	*ft_check_list(struct s_list *lst, int fd)
 {
-	static struct s_list	*list;
-	int 	ret;
-	char	*buffer;
+	struct s_list *list;
 
-	if (!line || fd < 0 || BUFFER_SIZE < 1)
-		return (-1);
-	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (-1);
-	ret = 1;
+	list = lst;
 	if (!list)
 		list = ft_lstnew(fd);
 	else if (list->fd != fd)
 		list = ft_search_list(list, fd);
+	return (list);
+}
+
+int				get_next_line(int fd, char **line)
+{
+	static struct s_list	*list;
+	int						ret;
+	char					*buffer;
+
+	if (!line || fd < 0 || BUFFER_SIZE < 1 ||
+		(!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1)))))
+		return (-1);
+	ret = 1;
+	list = ft_check_list(list, fd);
 	while (ret && (!contain_newline(list->final_str)))
 	{
 		if ((ret = read(list->fd, buffer, BUFFER_SIZE)) == -1)
