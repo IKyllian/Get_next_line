@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:06:22 by kdelport          #+#    #+#             */
-/*   Updated: 2020/12/03 17:05:33 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2020/12/04 11:04:22 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ int		get_next_line(int fd, char **line)
 	char		*buffer;
 	static char *final_str;
 
-	if (!line || fd < 0 || BUFFER_SIZE < 1)
-		return (-1);
-	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	if (!line || fd < 0 || BUFFER_SIZE < 1 ||
+		(!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1)))))
 		return (-1);
 	ret = 1;
 	while (ret && (!contain_newline(final_str)))
