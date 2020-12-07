@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:06:22 by kdelport          #+#    #+#             */
-/*   Updated: 2020/12/04 11:04:22 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2020/12/07 10:58:49 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ char	*get_next_save(char *str)
 	return (new_str);
 }
 
+void	free_elems(char *buffer, char *final_str)
+{
+	if (final_str)
+		free(final_str);
+	free(buffer);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	int			ret;
@@ -54,7 +61,7 @@ int		get_next_line(int fd, char **line)
 	{
 		if ((ret = read(fd, buffer, BUFFER_SIZE)) == -1)
 		{
-			free(buffer);
+			free_elems(buffer, final_str);
 			return (-1);
 		}
 		buffer[ret] = 0;
