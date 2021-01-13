@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:41:26 by kdelport          #+#    #+#             */
-/*   Updated: 2020/12/03 17:05:47 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/13 13:30:31 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			contain_newline(char *str)
 	return (0);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char		*ft_strjoin(char const *s1, char const *s2, int *error)
 {
 	size_t	l_s1;
 	size_t	l_s2;
@@ -65,32 +65,36 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	l_s1 = ft_strlen(s1);
 	l_s2 = ft_strlen(s2);
 	if (!(str = malloc(sizeof(char) * (l_s1 + l_s2 + 1))))
+	{
+		*error = 1;
 		return (NULL);
+	}
 	ft_memcpy(str, s1, l_s1);
 	ft_memcpy(str + l_s1, s2, l_s2);
 	str[l_s1 + l_s2] = 0;
-	free((void *)s1);
+	if (s1)
+		free((void *)s1);
 	return (str);
 }
 
-char		*get_line_read(char *str)
+int			get_line_read(char *str, char **line, int *index)
 {
 	int		i;
 	char	*new_str;
 
 	i = 0;
 	if (!str)
-		return (NULL);
-	while (str[i] && str[i] != '\n')
-		i++;
-	if (!(new_str = malloc(sizeof(char) * (i + 1))))
-		return (NULL);
-	i = 0;
+		return (0);
+	while (str[*index] && str[*index] != '\n')
+		(*index)++;
+	if (!(new_str = malloc(sizeof(char) * (*index + 1))))
+		return (1);
 	while (str[i] && str[i] != '\n')
 	{
 		new_str[i] = str[i];
 		i++;
 	}
 	new_str[i] = 0;
-	return (new_str);
+	*line = new_str;
+	return (0);
 }
